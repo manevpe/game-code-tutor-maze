@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="code-tutor-game-maze" value="notranslate" />
+  <meta name="viewport"
+    content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no" />
+  <meta name="description" content="The Maze is a puzzle game to teach you programming loops and conditionals." />
+  <title>Code Tutor Game - The Maze</title>
+  <link rel="stylesheet" href="assets/common.css" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td>
+          <h1>
+            <span id="title">
+              <a href="./">Home</a>
+            </span>
+          </h1>
+        </td>
+        <!-- <td id="header_cta" class="farSide">
+              &nbsp;
+              <button id="linkButton" title="Save and link to blocks.">
+                <img src="assets/images/1x1.gif" class="link icon21">
+              </button>
+      
+              &nbsp; <button id="pegmanButton"><img src="assets/images/1x1.gif"
+                  style="background-image: url(&quot;assets/images/pegman.png&quot;);"><span
+                  id="pegmanButtonArrow">▾</span></button>
+            </td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="visualization">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgMaze" width="400px" height="400px">
+      <g id="look">
+        <path d="M 0,-15 a 15 15 0 0 1 15 15" />
+        <path d="M 0,-35 a 35 35 0 0 1 35 35" />
+        <path d="M 0,-55 a 55 55 0 0 1 55 55" />
+      </g>
+    </svg>
+    <div id="capacityBubble">
+      <div id="capacity"></div>
+    </div>
+  </div>
+
+  <table width="400">
+    <tbody>
+      <tr>
+        <td style="width: 190px; text-align: center; vertical-align: top;">
+        </td>
+        <td>
+          <button id="runButton" class="primary" title="Makes the player do what the blocks say.">
+            <img src="assets/images/1x1.gif" class="run icon21"> Run Program
+          </button>
+          <button id="resetButton" class="primary" style="display: none"
+            title="Put the player back at the start of the maze.">
+            <img src="assets/images/1x1.gif" class="stop icon21"> Reset
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <xml id="toolbox" style="height: 480px; width: 400px">
+    <block type="maze_moveForward"></block>
+    <block type="maze_turn">
+      <field name="DIR">turnLeft</field>
+    </block>
+    <block type="maze_turn">
+      <field name="DIR">turnRight</field>
+    </block>
+    <block type="maze_forever"></block>
+    <block type="maze_if"></block>
+    <block type="maze_ifElse"></block>
+  </xml>
+  <div id="blockly"></div>
+
+  <div id="pegmanMenu" style="display: none;">
+    <div><img src="assets/images/1x1.gif" style="background-image: url(&quot;assets/images/astro.png&quot;);"></div>
+    <div><img src="assets/images/1x1.gif" style="background-image: url(&quot;assets/images/panda.png&quot;);"></div>
+  </div>
+
+
+  <div id="dialogShadow" class="dialogAnimate"></div>
+  <div id="dialogBorder"></div>
+  <div id="dialog"></div>
+
+
+  <div id="dialogDone" class="dialogHiddenContent">
+    <div style="font-size: large; margin: 1em;">Congratulations!</div>
+    <div id="dialogLinesText" style="font-size: large; margin: 1em;"></div>
+    <pre id="containerCode"></pre>
+    <div id="dialogDoneText" style="font-size: large; margin: 1em;"></div>
+    <img id="pegSpin" src="assets/images/1x1.gif" style="background-image: url(&quot;assets/images/pegman.png&quot;);">
+    <div id="dialogDoneButtons" class="farSide" style="padding: 1ex 3ex 0">
+      <button class="addHideHandler">Cancel</button>
+      <button id="doneOk" class="secondary">OK</button>
+    </div>
+  </div>
+
+  <div id="dialogStorage" class="dialogHiddenContent">
+    <div id="containerStorage"></div>
+
+    <div class="farSide" style="padding: 1ex 3ex 0">
+      <button class="secondary addHideHandler">OK</button>
+    </div>
+
+  </div>
+
+
+  <div id="helpSection">
+    <div id="dialogHelpStack" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              Stack a couple of 'move forward' blocks together to help me reach the goal.
+            </td>
+            <td valign="top">
+              <img src="assets/images/help_stack.png" class="mirrorImg" height="63" width="136">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpOneTopBlock" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              On this level, you need to stack together all of the blocks in the white workspace.
+              <div id="sampleOneTopBlock" class="readonly"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpRun" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              Run your program to see what happens.
+            </td>
+            <td rowspan="2">
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div><img src="assets/images/help_run.png" class="mirrorImg" height="27" width="141"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpReset" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              Your program didn't solve the maze. Press 'Reset' and try again.
+            </td>
+            <td rowspan="2">
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div><img src="assets/images/help_run.png" class="mirrorImg" height="27" width="141"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpRepeat" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help_up.png">
+            </td>
+            <td>
+              Reach the end of this path using only two blocks. Use 'repeat' to run a block more than once.
+            </td>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpCapacity" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              You have used up all the blocks for this level. To create a new block, you first need to delete an
+              existing
+              block.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpRepeatMany" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help_up.png">
+            </td>
+            <td>
+              You can fit more than one block inside a 'repeat' block.
+            </td>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpSkins" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+            <td width="95%">
+              Choose your favourite player from this menu.
+            </td>
+            <td>
+              <img src="assets/images/help_up.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpIf" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help_up.png">
+            </td>
+            <td>
+              An 'if' block will do something only if the condition is true. Try turning left if there is a path to the
+              left.
+            </td>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpMenu" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help_up.png">
+            </td>
+            <td id="helpMenuText">
+              Click on %1 in the 'if' block to change its condition.
+            </td>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpIfElse" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help_down.png">
+            </td>
+            <td>
+              If-else blocks will do one thing or the other.
+            </td>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dialogHelpWallFollow" class="dialogHiddenContent">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <img src="assets/images/help.png">
+            </td>
+            <td>&nbsp;</td>
+            <td>
+              Can you solve this complicated maze? Try following the left-hand wall. Advanced programmers only!
+
+              <div class="farSide" style="padding: 1ex 3ex 0">
+                <button class="secondary addHideHandler">OK</button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="blocklyWidgetDiv" style="direction: ltr; display: none; height: 88px;"></div>
+  <div class="blocklyDropDownDiv" style="opacity: 0; transition: transform 0.25s ease 0s, opacity 0.25s ease 0s;">
+    <div class="blocklyDropDownContent"></div>
+    <div class="blocklyDropDownArrow"></div>
+  </div>
+  <div class="blocklyTooltipDiv"></div><canvas class="blocklyComputeCanvas"></canvas>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <xml
+      xmlns="https://developers.google.com/blockly/xml"
+      id="toolbox"
+      style="display: none"
+    >
+    </xml> -->
+  <!-- <script type="module" src="./src/blocks.js"></script> -->
+  <script type="text/javascript" src="./index.js"></script>
+  <noscript>This game requires JavaScript.</noscript>
+</body>
+
+</html>
