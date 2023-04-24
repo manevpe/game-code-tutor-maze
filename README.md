@@ -1,5 +1,8 @@
 # Code Tutor Game - Maze
 
+Game for developing logical thinking through programming excercises, based on conditional logic and loops.
+Based on the Google Blockly engine.
+
 ## For Developers
 
 ### Installation

@@ -173,6 +173,7 @@ BlocklyCode.congratulationsKeyDown_ = function (e) {
   if (e.keyCode === 13 || e.keyCode === 32) {
     BlocklyInterface.nextLevel();
   }
+  BlocklyDialogs.hideDialog();
 };
 
 export default BlocklyCode;

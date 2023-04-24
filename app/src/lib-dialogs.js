@@ -336,41 +336,6 @@ BlocklyDialogs.storageAlert = function(origin, message) {
 };
 
 /**
- * Display a dialog suggesting that the user give up.
- */
-BlocklyDialogs.abortOffer = function() {
-  // If the user has solved the level, all is well.
-  if (BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
-                                        BlocklyGames.LEVEL)) {
-    return;
-  }
-  // Don't override an existing dialog, or interrupt a drag.
-  if (BlocklyDialogs.isDialogVisible_ ||
-      BlocklyInterface.workspace.isDragging()) {
-    setTimeout(BlocklyDialogs.abortOffer, 15 * 1000);
-    return;
-  }
-
-  const content = BlocklyGames.getElementById('dialogAbort');
-  const style = {
-    width: '40%',
-    left: '30%',
-    top: '3em',
-  };
-
-  const ok = BlocklyGames.getElementById('abortOk');
-  ok.addEventListener('click', BlocklyInterface.indexPage, true);
-  ok.addEventListener('touchend', BlocklyInterface.indexPage, true);
-
-  BlocklyDialogs.showDialog(content, null, false, true, style,
-      function() {
-        document.body.removeEventListener('keydown',
-            BlocklyDialogs.abortKeyDown_, true);
-        });
-  document.body.addEventListener('keydown', BlocklyDialogs.abortKeyDown_, true);
-};
-
-/**
  * If the user presses enter, escape, or space, hide the dialog.
  * @param {!Event} e Keyboard event.
  */

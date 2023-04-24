@@ -19,8 +19,18 @@
       <tr>
         <td>
           <h1>
-            <span id="title">
-              <a href="./">Home</a>
+            <span class="level-btn">
+              <button id="btn-level1" class="active">Level 1</button>
+            </span>
+          </h1>
+          <h1>
+            <span class="level-btn">
+              <button id="btn-level2">Level 2</button>
+            </span>
+          </h1>
+          <h1>
+            <span class="level-btn">
+              <button id="btn-level3">Level 3</button>
             </span>
           </h1>
         </td>
@@ -29,10 +39,7 @@
               <button id="linkButton" title="Save and link to blocks.">
                 <img src="assets/images/1x1.gif" class="link icon21">
               </button>
-      
-              &nbsp; <button id="pegmanButton"><img src="assets/images/1x1.gif"
-                  style="background-image: url(&quot;assets/images/pegman.png&quot;);"><span
-                  id="pegmanButtonArrow">▾</span></button>
+
             </td> -->
       </tr>
     </tbody>
@@ -54,7 +61,15 @@
   <table width="400">
     <tbody>
       <tr>
-        <td style="width: 190px; text-align: center; vertical-align: top;">
+        <td style="width: 190px; text-align: center; vertical-align: middle;">
+          <label for="cars">Speed:</label>
+          <select name="speed" id="speedSelector">
+            <option value="1">x1</option>
+            <option value="0.5">x2</option>
+            <option value="0.33">x3</option>
+            <option value="0.20">x5</option>
+            <option value="0.10">x10</option>
+          </select>
         </td>
         <td>
           <button id="runButton" class="primary" title="Makes the player do what the blocks say.">
@@ -69,18 +84,7 @@
     </tbody>
   </table>
 
-  <xml id="toolbox" style="height: 480px; width: 400px">
-    <block type="maze_moveForward"></block>
-    <block type="maze_turn">
-      <field name="DIR">turnLeft</field>
-    </block>
-    <block type="maze_turn">
-      <field name="DIR">turnRight</field>
-    </block>
-    <block type="maze_forever"></block>
-    <block type="maze_if"></block>
-    <block type="maze_ifElse"></block>
-  </xml>
+  <xml id="toolbox" style="height: 480px; width: 400px"></xml>
   <div id="blockly"></div>
 
   <div id="pegmanMenu" style="display: none;">

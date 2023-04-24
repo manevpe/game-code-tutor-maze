@@ -9,6 +9,13 @@ body {
   }
   h1 a {
     text-decoration: none;
+    float: left;
+  }
+  .level-btn {
+    float: left;
+  }
+  .level-btn .active {
+    background-color: lightblue;
   }
   a:focus,
   a:hover {

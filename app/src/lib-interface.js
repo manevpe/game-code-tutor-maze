@@ -1,5 +1,6 @@
 import BlocklyGames from "./lib-games";
 import BlocklyStorage from "./lib-storage";
+import BlocklyDialogs from "./lib-dialogs";
 import Blockly from "blockly";
 
 var BlocklyInterface = {};
@@ -27,19 +28,19 @@ BlocklyInterface.blocksDisabled = false;
  * execution.
  * @type string
  */
-BlocklyInterface.executedCode = '';
+BlocklyInterface.executedCode = "";
 
 /**
  * Additional parameter to append when moving to next level.
  * @type string
  */
-BlocklyInterface.nextLevelParam = '';
+BlocklyInterface.nextLevelParam = "";
 
 /**
  * Common startup tasks for all apps.
  * @param {string} title Text for the page title.
  */
-BlocklyInterface.init = function(title) {
+BlocklyInterface.init = function (title) {
   BlocklyGames.init(title);
 
   // Disable the link button if page isn't backed by App Engine storage.
@@ -61,7 +62,7 @@ BlocklyInterface.init = function(title) {
  * @param {boolean|!Function} inherit If true or a function, load blocks from
  *     previous level.  If a function, call it to modify the inherited blocks.
  */
-BlocklyInterface.loadBlocks = function(defaultXml, inherit) {
+BlocklyInterface.loadBlocks = function (defaultXml, inherit) {
   if (!BlocklyGames.IS_HTML && window.location.hash.length > 1) {
     // An href with #key triggers an AJAX call to retrieve saved blocks.
     BlocklyStorage.retrieveXml(window.location.hash.substring(1));
@@ -80,13 +81,17 @@ BlocklyInterface.loadBlocks = function(defaultXml, inherit) {
     delete window.sessionStorage.loadOnceBlocks;
   }
 
-  const savedLevel =
-      BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
-                                        BlocklyGames.LEVEL);
-  let inherited = inherit &&
-      BlocklyGames.loadFromLocalStorage(BlocklyGames.storageName,
-                                        BlocklyGames.LEVEL - 1);
-  if (inherited && typeof inherit === 'function') {
+  const savedLevel = BlocklyGames.loadFromLocalStorage(
+    BlocklyGames.storageName,
+    BlocklyGames.LEVEL
+  );
+  let inherited =
+    inherit &&
+    BlocklyGames.loadFromLocalStorage(
+      BlocklyGames.storageName,
+      BlocklyGames.LEVEL - 1
+    );
+  if (inherited && typeof inherit === "function") {
     inherited = inherit(inherited);
   }
 
@@ -100,10 +105,10 @@ BlocklyInterface.loadBlocks = function(defaultXml, inherit) {
  * Set the given code (XML or JS) to the editor (Blockly or ACE).
  * @param {string} code XML or JS code.
  */
-BlocklyInterface.setCode = function(code) {
+BlocklyInterface.setCode = function (code) {
   if (BlocklyInterface.editor) {
     // Text editor.
-    BlocklyInterface.editor['setValue'](code, -1);
+    BlocklyInterface.editor["setValue"](code, -1);
   } else {
     // Blockly editor.
     const xml = Blockly.Xml.textToDom(code);
@@ -118,22 +123,24 @@ BlocklyInterface.setCode = function(code) {
  * Get the user's code (XML or JS) from the editor (Blockly or ACE).
  * @returns {string} XML or JS code.
  */
-BlocklyInterface.getCode = function() {
+BlocklyInterface.getCode = function () {
   let text;
   if (BlocklyInterface.blocksDisabled) {
     // Text editor.
-    text = BlocklyInterface.editor['getValue']();
+    text = BlocklyInterface.editor["getValue"]();
   } else {
     // Blockly editor.
     const xml = Blockly.Xml.workspaceToDom(BlocklyInterface.workspace, true);
     // Remove x/y coordinates from XML if there's only one block stack.
     // There's no reason to store this, removing it helps with anonymity.
-    if (BlocklyInterface.workspace.getTopBlocks(false).length === 1 &&
-        xml.querySelector) {
-      const block = xml.querySelector('block');
+    if (
+      BlocklyInterface.workspace.getTopBlocks(false).length === 1 &&
+      xml.querySelector
+    ) {
+      const block = xml.querySelector("block");
       if (block) {
-        block.removeAttribute('x');
-        block.removeAttribute('y');
+        block.removeAttribute("x");
+        block.removeAttribute("y");
       }
     }
     text = Blockly.Xml.domToText(xml);
@@ -145,10 +152,12 @@ BlocklyInterface.getCode = function() {
  * Monitor the block or JS editor.  If a change is made that changes the code,
  * clear the key from the URL.
  */
-BlocklyInterface.codeChanged = function() {
-  if (BlocklyStorage.startCode !== null &&
-      BlocklyStorage.startCode !== BlocklyInterface.getCode()) {
-    window.location.hash = '';
+BlocklyInterface.codeChanged = function () {
+  if (
+    BlocklyStorage.startCode !== null &&
+    BlocklyStorage.startCode !== BlocklyInterface.getCode()
+  ) {
+    window.location.hash = "";
     BlocklyStorage.startCode = null;
   }
 };
@@ -157,40 +166,49 @@ BlocklyInterface.codeChanged = function() {
  * Inject Blockly workspace into page.
  * @param {!Object} options Dictionary of Blockly options.
  */
-BlocklyInterface.injectBlockly = function(options) {
-  const toolbox = BlocklyGames.getElementById('toolbox');
-  if (toolbox) {
-    options['toolbox'] = toolbox;
+BlocklyInterface.injectBlockly = function (options) {
+  if (!options.toolbox) {
+    const toolbox = BlocklyGames.getElementById("toolbox");
+    if (toolbox) {
+      options["toolbox"] = toolbox;
+    }
   }
-  options['media'] = 'third-party/blockly/media/';
-  options['oneBasedIndex'] = false;
-  BlocklyInterface.workspace = Blockly.inject('blockly', options);
+  options["media"] = "third-party/blockly/media/";
+  options["oneBasedIndex"] = false;
+  if (BlocklyInterface.workspace) {
+    BlocklyInterface.workspace.clear();
+    BlocklyInterface.workspace = null;
+  }
+  // Remove previous blockly nodes from the DOM
+  document.getElementById("blockly").innerHTML = "";
+  BlocklyInterface.workspace = Blockly.inject("blockly", options);
   BlocklyInterface.workspace.addChangeListener(BlocklyInterface.codeChanged);
 };
 
 /**
  * Save the blocks/JS for this level to persistent client-side storage.
  */
-BlocklyInterface.saveToLocalStorage = function() {
+BlocklyInterface.saveToLocalStorage = function () {
   // MSIE 11 does not support localStorage on file:// URLs.
   if (!window.localStorage) {
     return;
   }
   const name = BlocklyGames.storageName + BlocklyGames.LEVEL;
+  BlocklyInterface.executedCode = BlocklyInterface.getCode();
   window.localStorage[name] = BlocklyInterface.executedCode;
 };
 
 /**
  * Go to the index page.
  */
-BlocklyInterface.indexPage = function() {
-  window.location = (BlocklyGames.IS_HTML ? 'index.html' : './');
+BlocklyInterface.indexPage = function () {
+  window.location = BlocklyGames.IS_HTML ? "index.html" : "./";
 };
 
 /**
  * Save the blocks/code for a one-time reload.
  */
-BlocklyInterface.saveToSessionStorage = function() {
+BlocklyInterface.saveToSessionStorage = function () {
   // Store the blocks for the duration of the reload.
   // MSIE 11 does not support sessionStorage on file:// URLs.
   if (window.sessionStorage) {
@@ -198,18 +216,28 @@ BlocklyInterface.saveToSessionStorage = function() {
   }
 };
 
+BlocklyInterface.nextLevel = function () {
+  if (BlocklyGames.LEVEL < BlocklyGames.MAX_LEVEL) {
+    // TODO
+  } else {
+    // TODO
+  }
+  BlocklyDialogs.hideDialog();
+};
+
 /**
  * Inject readonly Blockly.  Only inserts once.
  * @param {string} id ID of div to be injected into.
  * @param {string|!Array<string>} xml XML string(s) describing blocks.
  */
-BlocklyInterface.injectReadonly = function(id, xml) {
+BlocklyInterface.injectReadonly = function (id, xml) {
   const div = BlocklyGames.getElementById(id);
   if (!div.firstChild) {
-    const workspace =
-        Blockly.inject(div, {'rtl': BlocklyGames.IS_RTL, 'readOnly': true});
-    if (typeof xml !== 'string') {
-      xml = xml.join('');
+    const workspace = Blockly.inject(div, {
+      readOnly: true,
+    });
+    if (typeof xml !== "string") {
+      xml = xml.join("");
     }
     Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
   }
@@ -220,23 +248,27 @@ BlocklyInterface.injectReadonly = function(id, xml) {
  * @param {!Event} e Mouse or touch event.
  * @returns {boolean} True if spam.
  */
-BlocklyInterface.eventSpam = function(e) {
+BlocklyInterface.eventSpam = function (e) {
   // Touch screens can generate 'touchend' followed shortly thereafter by
   // 'click'.  For now, just look for this very specific combination.
   // Some devices have both mice and touch, but assume the two won't occur
   // within two seconds of each other.
   const touchMouseTime = 2000;
-  if (e.type === 'click' &&
-      BlocklyInterface.eventSpam.previousType_ === 'touchend' &&
-      BlocklyInterface.eventSpam.previousDate_ + touchMouseTime > Date.now()) {
+  if (
+    e.type === "click" &&
+    BlocklyInterface.eventSpam.previousType_ === "touchend" &&
+    BlocklyInterface.eventSpam.previousDate_ + touchMouseTime > Date.now()
+  ) {
     e.preventDefault();
     e.stopPropagation();
     return true;
   }
   // Users double-click or double-tap accidentally.
   const doubleClickTime = 400;
-  if (BlocklyInterface.eventSpam.previousType_ === e.type &&
-      BlocklyInterface.eventSpam.previousDate_ + doubleClickTime > Date.now()) {
+  if (
+    BlocklyInterface.eventSpam.previousType_ === e.type &&
+    BlocklyInterface.eventSpam.previousDate_ + doubleClickTime > Date.now()
+  ) {
     e.preventDefault();
     e.stopPropagation();
     return true;

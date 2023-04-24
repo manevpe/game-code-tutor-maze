@@ -45,8 +45,8 @@ BlocklyGames.getIntegerParamFromUrl = function(name, minValue, maxValue) {
  */
 BlocklyGames.storageName;
 
-BlocklyGames.LEVEL = 10;
-BlocklyGames.MAX_LEVEL = 10;
+BlocklyGames.LEVEL = 1;
+BlocklyGames.MAX_LEVEL = 3;
 
 /**
  * Common startup tasks for all apps.
