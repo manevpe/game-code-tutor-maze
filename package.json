@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
+    "filemanager-webpack-plugin": "^8.0.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
