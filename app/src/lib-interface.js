@@ -175,6 +175,7 @@ BlocklyInterface.injectBlockly = function (options) {
   }
   options["media"] = "third-party/blockly/media/";
   options["oneBasedIndex"] = false;
+  options["sounds"] = false;
   if (BlocklyInterface.workspace) {
     BlocklyInterface.workspace.clear();
     BlocklyInterface.workspace = null;

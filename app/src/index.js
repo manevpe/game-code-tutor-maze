@@ -12,7 +12,8 @@ import BlocklyInterface from "./lib-interface";
 // TODO - 2 more levels
 // TODO - help menu
 // TODO - refactor code
-// TODO - web server deployment
+// TODO - web server deployment with changing logo / favicon
+// TODO - mobile screen to be zoomed in
 
 let level = Level1;
 let toolbox = level.toolbox;

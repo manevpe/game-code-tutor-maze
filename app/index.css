@@ -1,8 +1,18 @@
+:root {
+  --color-primary: #0ec0c0;
+  --d1: 0.33333em;
+  --d2: calc(var(--d1) * 2);
+  --d3: calc(var(--d1) * 3);
+  --d4: calc(var(--d1) * 4);
+  --d5: calc(var(--d1) * 5);
+  --border-radius: 0.5em;
+}
+
 body {
   background-color: white;
   font-family: sans-serif;
+  font-size: 12px;
   margin: 0;
-  min-width: 400px;
 }
 
 #header {
@@ -12,7 +22,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: var(--d2);
 }
 
 #header h1 {
@@ -21,26 +31,26 @@ body {
   background-image: url("./assets/images/logo.png");
   background-repeat: no-repeat;
   background-size: auto, 200px;
-  background-position: left 10px center;
+  background-position: left var(--d2) center;
   color: white;
   font-weight: bold;
-  padding: 20px;
-  margin: 0px 0px 10px 0px;
+  padding: var(--d2);
+  margin: 0px 0px var(--d1) 0px;
 }
 
 @media only screen and (max-width: 980px) {
   #header h1 {
     height: 80px;
-    background-position: center top 5px;
+    background-position: center top var(--d1);
     display: flex;
     flex-flow: column-reverse;
   }
 }
 
 button {
-  margin: 0px 10px;
-  padding: 10px 15px;
-  border-radius: 6px;
+  margin: 0px var(--d2);
+  padding: var(--d1) var(--d3);
+  border-radius: var(--border-radius);
   border: 1px solid #d1d5db;
   font-size: large;
   background-color: white;
@@ -48,14 +58,14 @@ button {
 }
 
 button.primary {
-  background-color: #0ec0c0;
-  border: 1px solid #0ec0c0;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   color: #f3f4f6;
 }
 
 button:hover {
-  background-color: #0ec0c0;
-  border: 1px solid #0ec0c0;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
   color: white;
 }
 
@@ -64,9 +74,9 @@ label {
 }
 
 select {
-  padding: 10px 5px;
+  padding: var(--d2) var(--d1);
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   font-size: large;
 }
 
@@ -75,34 +85,35 @@ select {
 #game {
   display: flex;
   flex-wrap: wrap;
-  padding: 0px 20px;
+  padding: 0px var(--d5);
   gap: 1em;
 }
 
 #visualization {
   flex: 1 1 auto;
-  min-width: 200px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  padding: 10px 10px;
-  min-width: 400px;
+  border-radius: var(--border-radius);
+  padding: var(--d2) var(--d2);
+  min-width: 600px;
 }
 
 #svgMaze {
   overflow: hidden;
   display: block;
   margin: auto;
+  height: 60vh;
+  min-height: 300px;
 }
 
 #capacityBubble {
   display: flex;
-  margin: 10px 0px;
+  margin: var(--d2) 0px;
 }
 
 #capacity {
   color: #fff;
-  padding: 5px 1em;
-  border-radius: 15px;
+  padding: var(--d1) 1em;
+  border-radius: 16px;
   background-color: rgba(64, 64, 64, 0.7);
   font-size: large;
   margin: auto;
@@ -123,11 +134,11 @@ select {
 
 #blockly {
   flex: 12 1 auto;
-  padding: 10px 10px;
+  padding: var(--d2);
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  min-width: 400px;
-  min-height: 500px;
+  border-radius: var(--border-radius);
+  min-width: 600px;
+  min-height: 400px;
 }
 
 #sampleOneTopBlock {
@@ -136,10 +147,10 @@ select {
 }
 
 .helpMenuFake {
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   background-color: #bfcdde;
   color: #000;
-  padding: 0 1ex;
+  padding: 0 var(--d1);
   cursor: default;
 }
 
@@ -176,7 +187,7 @@ a:hover {
 #containerCode {
   direction: ltr;
   background-color: #eee;
-  padding: 5px;
+  padding: var(--d1);
   margin: 0 3ex;
   font-size: large;
   overflow: auto;
@@ -192,7 +203,7 @@ img[src$="help.png"] {
 button.secondary {
   border: 1px solid #4d90fe;
   background-color: #4d90fe;
-  color: #fff;
+  color: white;
 }
 
 button.primary > img,
@@ -216,8 +227,8 @@ button:hover:not(:disabled) > img {
   color: #1f2937;
   border: 1px solid #d1d5db;
   position: absolute;
-  border-radius: 6px;
-  padding: 10px;
+  border-radius: var(--border-radius);
+  padding: var(--d2);
 }
 
 #dialogBorder {
@@ -226,7 +237,7 @@ button:hover:not(:disabled) > img {
   background-color: white;
   color: black;
   border: 1px solid black;
-  border-radius: 6px;
+  border-radius: var(--border-radius);
 }
 
 #dialogShadow {
