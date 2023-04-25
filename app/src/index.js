@@ -9,13 +9,13 @@ import BlocklyDialogs from "./lib-dialogs";
 import BlocklyGames from "./lib-games";
 import BlocklyInterface from "./lib-interface";
 
-// TODO - better theme, including logo
 // TODO - convert pegman to ninja icons
 // TODO - 2 more levels
 // TODO - help menu
 // TODO - select next level on complete
 // TODO - remove mp3 / wav files
 // TODO - favicon
+// TODO - refactor code
 
 let level = Level1;
 let toolbox = level.toolbox;
@@ -58,9 +58,9 @@ function changeLevel(levelNumber) {
       level = Level1;
   }
   document.querySelectorAll("[id^='btn-level']").forEach((btn) => {
-    btn.classList.remove("active");
+    btn.classList.remove("primary");
   });
-  document.getElementById("btn-level" + levelNumber).classList.add("active");
+  document.getElementById("btn-level" + levelNumber).classList.add("primary");
   BlocklyGames.LEVEL = levelNumber;
   loadLevel();
 }
@@ -404,35 +404,13 @@ function init() {
 
   BlocklyInterface.init("Maze");
 
-  const blocklyDiv = BlocklyGames.getElementById("blockly");
-  const visualization = BlocklyGames.getElementById("visualization");
-  const onresize = function (_e) {
-    const top = visualization.offsetTop;
-    blocklyDiv.style.top = Math.max(10, top - window.pageYOffset) + "px";
-    blocklyDiv.style.left = "420px";
-    blocklyDiv.style.width = window.innerWidth - 440 + "px";
-  };
-  window.addEventListener("scroll", function () {
-    onresize(null);
-    Blockly.svgResize(BlocklyInterface.workspace);
-  });
-  window.addEventListener("resize", onresize);
-  onresize(null);
-
   const scale = 1;
   BlocklyInterface.injectBlockly({
     toolbox: toolbox,
     maxBlocks: MAX_BLOCKS,
-    trashcan: true,
+    trashcan: false,
     zoom: { startScale: scale },
   });
-  //BlocklyInterface.workspace.getAudioManager().load(SKIN.winSound, "win");
-  //BlocklyInterface.workspace.getAudioManager().load(SKIN.crashSound, "fail");
-  // Not really needed, there are no user-defined functions or variables.
-  //   BlocklyJavaScript.addReservedWords(
-  //     "moveForward,moveBackward," +
-  //       "turnRight,turnLeft,isPathForward,isPathRight,isPathBackward,isPathLeft"
-  //   );
 
   drawMap();
 
@@ -459,10 +437,7 @@ function init() {
   BlocklyGames.bindClick("runButton", runButtonClick);
   BlocklyGames.bindClick("resetButton", resetButtonClick);
 
-  // Add the spinning Pegman icon to the done dialog.
-  // <img id="pegSpin" src="common/1x1.gif">
   const buttonDiv = BlocklyGames.getElementById("dialogDoneButtons");
-
   const pegSpin = document.createElement("img");
   pegSpin.id = "pegSpin";
   pegSpin.src = "assets/images/1x1.gif";
@@ -484,39 +459,17 @@ function loadLevel() {
   // for ease of reading and writing the static mazes.
   map = level.map;
 
-  // document.addEventListener("DOMContentLoaded", function () {
-  //   const workspace = Blockly.inject("toolbox", {
-  //     toolbox: toolbox,
-  //     media: "media/",
-  //   });
-  // });
-
   BlocklyGames.storageName = "maze";
 
   MAX_BLOCKS = level.MAX_BLOCKS;
 
   BlocklyInterface.init("Maze");
 
-  const blocklyDiv = BlocklyGames.getElementById("blockly");
-  const visualization = BlocklyGames.getElementById("visualization");
-  const onresize = function (_e) {
-    const top = visualization.offsetTop;
-    blocklyDiv.style.top = Math.max(10, top - window.pageYOffset) + "px";
-    blocklyDiv.style.left = "420px";
-    blocklyDiv.style.width = window.innerWidth - 440 + "px";
-  };
-  window.addEventListener("scroll", function () {
-    onresize(null);
-    Blockly.svgResize(BlocklyInterface.workspace);
-  });
-  window.addEventListener("resize", onresize);
-  onresize(null);
-
   const scale = 1;
   BlocklyInterface.injectBlockly({
     toolbox: toolbox,
     maxBlocks: MAX_BLOCKS,
-    trashcan: true,
+    trashcan: false,
     zoom: { startScale: scale },
   });
 

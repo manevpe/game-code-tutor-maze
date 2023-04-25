@@ -8,96 +8,64 @@
     content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta name="description" content="The Maze is a puzzle game to teach you programming loops and conditionals." />
   <title>Code Tutor Game - The Maze</title>
-  <link rel="stylesheet" href="assets/common.css" />
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
   <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
 
-  <table width="100%">
-    <tbody>
-      <tr>
-        <td>
-          <h1>
-            <span class="level-btn">
-              <button id="btn-level1" class="active">Level 1</button>
-            </span>
-          </h1>
-          <h1>
-            <span class="level-btn">
-              <button id="btn-level2">Level 2</button>
-            </span>
-          </h1>
-          <h1>
-            <span class="level-btn">
-              <button id="btn-level3">Level 3</button>
-            </span>
-          </h1>
-        </td>
-        <!-- <td id="header_cta" class="farSide">
-              &nbsp;
-              <button id="linkButton" title="Save and link to blocks.">
-                <img src="assets/images/1x1.gif" class="link icon21">
-              </button>
+  <div id="header">
+    <h1>Code Tutor Game - The Maze</h1>
+    <span class="level-btn">
+      <button id="btn-level1" class="primary">Level 1</button>
+    </span>
+    <span class="level-btn">
+      <button id="btn-level2">Level 2</button>
+    </span>
+    <span class="level-btn">
+      <button id="btn-level3">Level 3</button>
+    </span>
+  </div>
 
-            </td> -->
-      </tr>
-    </tbody>
-  </table>
+  <div id="game">
+    <div id="visualization">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgMaze" height="400px">
+        <g id="look">
+          <path d="M 0,-15 a 15 15 0 0 1 15 15" />
+          <path d="M 0,-35 a 35 35 0 0 1 35 35" />
+          <path d="M 0,-55 a 55 55 0 0 1 55 55" />
+        </g>
+      </svg>
+      <div id="capacityBubble">
+        <div id="capacity"></div>
+      </div>
+      <div style="text-align: center; vertical-align: middle;">
+        <label for="speed">Speed:</label>
+        <select name="speed" id="speedSelector">
+          <option value="1">x1</option>
+          <option value="0.5">x2</option>
+          <option value="0.33">x3</option>
+          <option value="0.20">x5</option>
+          <option value="0.10">x10</option>
+        </select>
+        <button id="runButton" class="primary" title="Makes the player do what the blocks say.">
+          <img src="assets/images/1x1.gif" class="run icon21"> Run Program
+        </button>
+        <button id="resetButton" class="primary" style="display: none"
+          title="Put the player back at the start of the maze.">
+          <img src="assets/images/1x1.gif" class="stop icon21"> Reset
+        </button>
+      </div>
 
-  <div id="visualization">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgMaze" width="400px" height="400px">
-      <g id="look">
-        <path d="M 0,-15 a 15 15 0 0 1 15 15" />
-        <path d="M 0,-35 a 35 35 0 0 1 35 35" />
-        <path d="M 0,-55 a 55 55 0 0 1 55 55" />
-      </g>
-    </svg>
-    <div id="capacityBubble">
-      <div id="capacity"></div>
     </div>
+
+    <xml id="toolbox" style="height: 480px; width: 400px"></xml>
+    <div id="blockly"></div>
   </div>
-
-  <table width="400">
-    <tbody>
-      <tr>
-        <td style="width: 190px; text-align: center; vertical-align: middle;">
-          <label for="cars">Speed:</label>
-          <select name="speed" id="speedSelector">
-            <option value="1">x1</option>
-            <option value="0.5">x2</option>
-            <option value="0.33">x3</option>
-            <option value="0.20">x5</option>
-            <option value="0.10">x10</option>
-          </select>
-        </td>
-        <td>
-          <button id="runButton" class="primary" title="Makes the player do what the blocks say.">
-            <img src="assets/images/1x1.gif" class="run icon21"> Run Program
-          </button>
-          <button id="resetButton" class="primary" style="display: none"
-            title="Put the player back at the start of the maze.">
-            <img src="assets/images/1x1.gif" class="stop icon21"> Reset
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <xml id="toolbox" style="height: 480px; width: 400px"></xml>
-  <div id="blockly"></div>
-
-  <div id="pegmanMenu" style="display: none;">
-    <div><img src="assets/images/1x1.gif" style="background-image: url(&quot;assets/images/astro.png&quot;);"></div>
-    <div><img src="assets/images/1x1.gif" style="background-image: url(&quot;assets/images/panda.png&quot;);"></div>
-  </div>
-
 
   <div id="dialogShadow" class="dialogAnimate"></div>
   <div id="dialogBorder"></div>
   <div id="dialog"></div>
-
-
   <div id="dialogDone" class="dialogHiddenContent">
     <div style="font-size: large; margin: 1em;">Congratulations!</div>
     <div id="dialogLinesText" style="font-size: large; margin: 1em;"></div>
@@ -109,7 +77,6 @@
       <button id="doneOk" class="secondary">OK</button>
     </div>
   </div>
-
   <div id="dialogStorage" class="dialogHiddenContent">
     <div id="containerStorage"></div>
 
@@ -118,7 +85,6 @@
     </div>
 
   </div>
-
 
   <div id="helpSection">
     <div id="dialogHelpStack" class="dialogHiddenContent">
@@ -335,33 +301,7 @@
     </div>
   </div>
 
-  <div class="blocklyWidgetDiv" style="direction: ltr; display: none; height: 88px;"></div>
-  <div class="blocklyDropDownDiv" style="opacity: 0; transition: transform 0.25s ease 0s, opacity 0.25s ease 0s;">
-    <div class="blocklyDropDownContent"></div>
-    <div class="blocklyDropDownArrow"></div>
-  </div>
-  <div class="blocklyTooltipDiv"></div><canvas class="blocklyComputeCanvas"></canvas>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <xml
-      xmlns="https://developers.google.com/blockly/xml"
-      id="toolbox"
-      style="display: none"
-    >
-    </xml> -->
-  <!-- <script type="module" src="./src/blocks.js"></script> -->
   <script type="text/javascript" src="./index.js"></script>
   <noscript>This game requires JavaScript.</noscript>
 </body>
