@@ -12,6 +12,7 @@ import BlocklyInterface from "./lib-interface";
 // TODO - 2 more levels
 // TODO - help menu
 // TODO - refactor code
+// TODO - web server deployment
 
 let level = Level1;
 let toolbox = level.toolbox;
