@@ -9,7 +9,7 @@
     "build": "webpack"
   },
   "dependencies": {
-    "blockly": "^9.0.0"
+    "blockly": "^9.3.2"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^5.1.1",
