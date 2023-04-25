@@ -255,6 +255,7 @@ BlocklyInterface.eventSpam = function (e) {
   // within two seconds of each other.
   const touchMouseTime = 2000;
   if (
+    e &&
     e.type === "click" &&
     BlocklyInterface.eventSpam.previousType_ === "touchend" &&
     BlocklyInterface.eventSpam.previousDate_ + touchMouseTime > Date.now()
@@ -266,6 +267,7 @@ BlocklyInterface.eventSpam = function (e) {
   // Users double-click or double-tap accidentally.
   const doubleClickTime = 400;
   if (
+    e &&
     BlocklyInterface.eventSpam.previousType_ === e.type &&
     BlocklyInterface.eventSpam.previousDate_ + doubleClickTime > Date.now()
   ) {
@@ -273,8 +275,10 @@ BlocklyInterface.eventSpam = function (e) {
     e.stopPropagation();
     return true;
   }
-  BlocklyInterface.eventSpam.previousType_ = e.type;
-  BlocklyInterface.eventSpam.previousDate_ = Date.now();
+  if (e) {
+    BlocklyInterface.eventSpam.previousType_ = e.type;
+    BlocklyInterface.eventSpam.previousDate_ = Date.now();
+  }
   return false;
 };
 

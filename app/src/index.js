@@ -9,12 +9,8 @@ import BlocklyDialogs from "./lib-dialogs";
 import BlocklyGames from "./lib-games";
 import BlocklyInterface from "./lib-interface";
 
-// TODO - convert pegman to ninja icons
 // TODO - 2 more levels
 // TODO - help menu
-// TODO - select next level on complete
-// TODO - remove mp3 / wav files
-// TODO - favicon
 // TODO - refactor code
 
 let level = Level1;
@@ -79,27 +75,11 @@ const SKINS = [
   // crashSound: List of sounds (in various formats) for player crashes.
   // crashType: Behaviour when player crashes (stop, spin, or fall).
   {
-    sprite: "./assets/images/pegman.png",
-    tiles: "./assets/images/tiles_pegman.png",
-    background: false,
+    sprite: "./assets/images/ninja.png",
+    tiles: "./assets/images/tiles_ninja.png",
+    background: "./assets/images/bg_ninja.png",
     look: "#000",
     crashType: CRASH_STOP,
-  },
-  {
-    sprite: "./assets/images/astro.png",
-    tiles: "./assets/images/tiles_astro.png",
-    background: "./assets/images/bg_astro.jpg",
-    // Coma star cluster, photo by George Hatfield, used with permission.
-    look: "#fff",
-    crashType: CRASH_SPIN,
-  },
-  {
-    sprite: "./assets/images/panda.png",
-    tiles: "./assets/images/tiles_panda.png",
-    background: "./assets/images/bg_panda.jpg",
-    // Spring canopy, photo by Rupert Fleetingly, CC licensed for reuse.
-    look: "#000",
-    crashType: CRASH_FALL,
   },
 ];
 const SKIN_ID = BlocklyGames.getIntegerParamFromUrl(
@@ -254,6 +234,7 @@ function drawMap() {
         width: MAZE_WIDTH,
         x: 0,
         y: 0,
+        opacity: 0.9,
       },
       svg
     );
@@ -432,17 +413,8 @@ function init() {
 
   BlocklyInterface.workspace.addChangeListener(updateCapacity);
 
-  document.body.addEventListener("mousemove", updatePegSpin_, true);
-
   BlocklyGames.bindClick("runButton", runButtonClick);
   BlocklyGames.bindClick("resetButton", resetButtonClick);
-
-  const buttonDiv = BlocklyGames.getElementById("dialogDoneButtons");
-  const pegSpin = document.createElement("img");
-  pegSpin.id = "pegSpin";
-  pegSpin.src = "assets/images/1x1.gif";
-  pegSpin.style.backgroundImage = "url(" + SKIN.sprite + ")";
-  buttonDiv.parentNode.insertBefore(pegSpin, buttonDiv);
 
   // Lazy-load the JavaScript interpreter.
   BlocklyCode.importInterpreter();
@@ -491,6 +463,8 @@ function loadLevel() {
 
   reset(true);
 
+  resetButtonClick();
+
   BlocklyInterface.workspace.addChangeListener(updateCapacity);
 }
 
@@ -536,78 +510,6 @@ function levelHelp(opt_event) {
     BlocklyDialogs.hideDialog(false);
   }
 }
-
-// /**
-//  * Reload with a different Pegman skin.
-//  * @param {number} newSkin ID of new skin.
-//  */
-// function changePegman(newSkin) {
-//   BlocklyInterface.saveToSessionStorage();
-//   location =
-//     location.protocol +
-//     "//" +
-//     location.host +
-//     location.pathname +
-//     "?lang=" +
-//     BlocklyGames.LANG +
-//     "&level=" +
-//     BlocklyGames.LEVEL +
-//     "&skin=" +
-//     newSkin;
-// }
-
-// let pegmanMenuMouse_;
-
-// /**
-//  * Display the Pegman skin-change menu.
-//  * @param {!Event} e Mouse, touch, or resize event.
-//  */
-// function showPegmanMenu(e) {
-//   const menu = BlocklyGames.getElementById("pegmanMenu");
-//   if (menu.style.display === "block") {
-//     // Menu is already open.  Close it.
-//     hidePegmanMenu(e);
-//     return;
-//   }
-//   // Prevent double-clicks or double-taps.
-//   if (BlocklyInterface.eventSpam(e)) {
-//     return;
-//   }
-//   const button = BlocklyGames.getElementById("pegmanButton");
-//   button.classList.add("buttonHover");
-//   menu.style.top = button.offsetTop + button.offsetHeight + "px";
-//   menu.style.left = button.offsetLeft + "px";
-//   menu.style.display = "block";
-//   pegmanMenuMouse_ = Blockly.browserEvents.bind(
-//     document.body,
-//     "mousedown",
-//     null,
-//     hidePegmanMenu
-//   );
-//   // Close the skin-changing hint if open.
-//   const hint = BlocklyGames.getElementById("dialogHelpSkins");
-//   if (hint && hint.className !== "dialogHiddenContent") {
-//     BlocklyDialogs.hideDialog(false);
-//   }
-//   showPegmanMenu.activatedOnce = true;
-// }
-
-// /**
-//  * Hide the Pegman skin-change menu.
-//  * @param {!Event} e Mouse, touch, or resize event.
-//  */
-// function hidePegmanMenu(e) {
-//   // Prevent double-clicks or double-taps.
-//   if (BlocklyInterface.eventSpam(e)) {
-//     return;
-//   }
-//   BlocklyGames.getElementById("pegmanMenu").style.display = "none";
-//   BlocklyGames.getElementById("pegmanButton").classList.remove("buttonHover");
-//   if (pegmanMenuMouse_) {
-//     Blockly.browserEvents.unbind(pegmanMenuMouse_);
-//     pegmanMenuMouse_ = undefined;
-//   }
-// }
 
 /**
  * Reset the maze to the start position and kill any pending animation tasks.
@@ -722,7 +624,7 @@ function updateCapacity() {
 }
 
 /**
- * Click the reset button.  Reset the maze.
+ * Click the reset button. Reset the maze.
  * @param {!Event} e Mouse or touch event.
  */
 function resetButtonClick(e) {
@@ -937,7 +839,7 @@ function animate() {
     case "finish":
       scheduleFinish(true);
       BlocklyInterface.saveToLocalStorage();
-      setTimeout(BlocklyCode.congratulations, 1000);
+      setTimeout(BlocklyCode.congratulations, 300);
   }
 
   pidList.push(setTimeout(animate, stepSpeed * 5));

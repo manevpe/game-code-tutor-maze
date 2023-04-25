@@ -49,11 +49,13 @@ button {
 
 button.primary {
   background-color: #0ec0c0;
+  border: 1px solid #0ec0c0;
   color: #f3f4f6;
 }
 
 button:hover {
   background-color: #0ec0c0;
+  border: 1px solid #0ec0c0;
   color: white;
 }
 
@@ -110,6 +112,11 @@ select {
   font-weight: bold;
 }
 
+#visualization .button-group {
+  text-align: center;
+  vertical-align: middle;
+}
+
 #toolbox {
   display: none;
 }
@@ -126,14 +133,6 @@ select {
 #sampleOneTopBlock {
   height: 80px;
   width: 250px;
-}
-
-#pegSpin {
-  height: 50px;
-  width: 49px;
-  background-position: -343px 0;
-  margin-top: 10px;
-  position: absolute;
 }
 
 .helpMenuFake {
@@ -168,10 +167,6 @@ img[src$="help_down.png"] {
 a:focus,
 a:hover {
   color: #f00;
-}
-
-.farSide {
-  text-align: right;
 }
 
 #header_cta > * {
@@ -217,23 +212,21 @@ button:hover:not(:disabled) > img {
 /* Dialogs */
 #dialog {
   visibility: hidden;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ccc;
+  background-color: white;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
   position: absolute;
-  border-radius: 8px;
-  box-shadow: 5px 5px 5px #888;
+  border-radius: 6px;
   padding: 10px;
 }
 
 #dialogBorder {
   visibility: hidden;
   position: absolute;
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #000;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
   border-radius: 6px;
-  box-shadow: 5px 5px 5px #888;
 }
 
 #dialogShadow {
@@ -243,7 +236,7 @@ button:hover:not(:disabled) > img {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #000;
+  background-color: black;
   opacity: 0.3;
 }
 
@@ -261,17 +254,23 @@ button:hover:not(:disabled) > img {
   z-index: -1;
 }
 
-#dialogHeader {
-  height: 25px;
-  margin: -10px -10px 15px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: #ddd;
-  cursor: move;
+#dialogDoneText {
+  font-size: large;
+  margin: 1em;
+}
+
+#dialog .farSide {
+  text-align: right;
+  padding: 1ex;
 }
 
 #dialog button {
   min-width: 4em;
+}
+
+.dialog h1 {
+  font-size: large;
+  margin: 1em;
 }
 
 .blocklyMainBackground {

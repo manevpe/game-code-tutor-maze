@@ -14,11 +14,6 @@ Level1.toolbox = {
 
     {
       kind: "block",
-      type: "maze_turn",
-    },
-
-    {
-      kind: "block",
       type: "maze_forever",
     },
 

@@ -101,46 +101,7 @@ BlocklyCode.congratulations = function () {
     top: "3em",
   };
 
-  // Add the user's code.
-  if (BlocklyInterface.workspace) {
-    const linesText = BlocklyGames.getElementById("dialogLinesText");
-    linesText.textContent = "";
-    let code = BlocklyCode.executedJsCode;
-    code = BlocklyCode.stripCode(code);
-    let noComments = code.replace(/\/\/[^\n]*/g, ""); // Inline comments.
-    noComments = noComments.replace(/\/\*.*\*\//g, ""); /* Block comments. */
-    noComments = noComments.replace(/[ \t]+\n/g, "\n"); // Trailing spaces.
-    noComments = noComments.replace(/\n+/g, "\n"); // Blank lines.
-    noComments = noComments.trim();
-    const lineCount = noComments.split("\n").length;
-    const pre = BlocklyGames.getElementById("containerCode");
-    pre.textContent = code;
-    if (typeof prettyPrintOne === "function") {
-      code = pre.innerHTML;
-      code = prettyPrintOne(code, "js");
-      pre.innerHTML = code;
-    }
-    let locMsg;
-    if (lineCount === 1) {
-      locMsg = "You solved this level with 1 line of JavaScript:";
-    } else {
-      locMsg = "You solved this level with %1 lines of JavaScript:".replace(
-        "%1",
-        String(lineCount)
-      );
-    }
-    linesText.appendChild(document.createTextNode(locMsg));
-  }
-
-  let levelMsg;
-  if (BlocklyGames.LEVEL < BlocklyGames.MAX_LEVEL) {
-    levelMsg = "Are you ready for level %1?".replace(
-      "%1",
-      String(BlocklyGames.LEVEL + 1)
-    );
-  } else {
-    levelMsg = "Are you ready for the next challenge?";
-  }
+  let levelMsg = "Are you ready for the next challenge? Select one of the other levels to try.";
 
   const ok = BlocklyGames.getElementById("doneOk");
   ok.addEventListener("click", BlocklyInterface.nextLevel, true);
