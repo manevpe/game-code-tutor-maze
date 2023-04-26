@@ -103,10 +103,6 @@ BlocklyCode.congratulations = function () {
 
   let levelMsg = "Are you ready for the next challenge? Select one of the other levels to try.";
 
-  const ok = BlocklyGames.getElementById("doneOk");
-  ok.addEventListener("click", BlocklyInterface.nextLevel, true);
-  ok.addEventListener("touchend", BlocklyInterface.nextLevel, true);
-
   BlocklyDialogs.showDialog(content, null, false, true, style, function () {
     document.body.removeEventListener(
       "keydown",

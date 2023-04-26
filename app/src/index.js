@@ -31,11 +31,15 @@ if (window.localStorage["speedMultiplier"]) {
   document.getElementById("speedSelector").value = speedMultiplier;
 }
 
+if (!window.localStorage["helpViewed"]) {
+  window.localStorage["helpViewed"] = true;
+  showHelpDialog();
+}
+
 if (window.innerHeight > window.innerWidth) {
   isMobile = true;
   document.getElementsByTagName("body")[0].classList.add("mobile");
 }
-
 
 document.querySelectorAll("[id^='btn-level']").forEach((btn) => {
   var id = btn.id.replace("btn-level", "");
@@ -63,6 +67,14 @@ function changeLevel(levelNumber) {
   document.getElementById("btn-level" + levelNumber).classList.add("primary");
   BlocklyGames.LEVEL = levelNumber;
   loadLevel();
+}
+
+document
+  .getElementById("help-button")
+  .addEventListener("click", () => showHelpDialog());
+
+window.dialogHide = function() {
+  BlocklyDialogs.hideDialog(false);
 }
 
 // Crash type constants.
@@ -473,46 +485,12 @@ function loadLevel() {
 }
 
 /**
- * When the workspace changes, update the help as needed.
- * @param {Blockly.Events.Abstract=} opt_event Custom data for event.
+ * Show the help dialog.
  */
-function levelHelp(opt_event) {
-  if (opt_event && opt_event.isUiEvent) {
-    // Just a change to highlighting or somesuch.
-    return;
-  } else if (BlocklyInterface.workspace.isDragging()) {
-    // Don't change helps during drags.
-    return;
-  } else if (
-    result === ResultType.SUCCESS ||
-    BlocklyGames.loadFromLocalStorage(
-      BlocklyGames.storageName,
-      BlocklyGames.LEVEL
-    )
-  ) {
-    // The user has already won.  They are just playing around.
-    return;
-  }
-
-  const userBlocks = Blockly.Xml.domToText(
-    Blockly.Xml.workspaceToDom(BlocklyInterface.workspace)
-  );
-  const toolbar = BlocklyInterface.workspace
-    .getFlyout()
-    .getWorkspace()
-    .getTopBlocks(true);
-  let content = null;
-  let origin = null;
-  let style = null;
-
-
-  if (content) {
-    if (content.parentNode !== BlocklyGames.getElementById("dialog")) {
-      BlocklyDialogs.showDialog(content, origin, true, false, style, null);
-    }
-  } else {
-    BlocklyDialogs.hideDialog(false);
-  }
+function showHelpDialog() {
+  let content = document.getElementById("dialogHelp");
+  document.getElementById("dialogHelpText").textContent = level.helpText;
+  BlocklyDialogs.showDialog(content, null, false, true, null, null);
 }
 
 /**
@@ -641,7 +619,6 @@ function resetButtonClick(e) {
   BlocklyGames.getElementById("resetButton").style.display = "none";
   BlocklyInterface.workspace.highlightBlock(null);
   reset(false);
-  levelHelp();
 }
 
 /**
@@ -774,7 +751,6 @@ function animate() {
   const action = log.shift();
   if (!action) {
     BlocklyCode.highlight(null);
-    levelHelp();
     return;
   }
   BlocklyCode.highlight(action[1]);
@@ -847,39 +823,6 @@ function animate() {
   }
 
   pidList.push(setTimeout(animate, stepSpeed * 5));
-}
-
-/**
- * Point the congratulations Pegman to face the mouse.
- * @param {Event} e Mouse move event.
- * @private
- */
-function updatePegSpin_(e) {
-  if (
-    document.getElementById("dialogDone").className === "dialogHiddenContent"
-  ) {
-    return;
-  }
-  const pegSpin = BlocklyGames.getElementById("pegSpin");
-  const bBox = BlocklyDialogs.getBBox(pegSpin);
-  const x = bBox.x + bBox.width / 2 - window.pageXOffset;
-  const y = bBox.y + bBox.height / 2 - window.pageYOffset;
-  const dx = e.clientX - x;
-  const dy = e.clientY - y;
-  let angle = Blockly.utils.math.toDegrees(Math.atan(dy / dx));
-  // 0: North, 90: East, 180: South, 270: West.
-  if (dx > 0) {
-    angle += 90;
-  } else {
-    angle += 270;
-  }
-  // Divide into 16 quads.
-  let quad = Math.round((angle / 360) * 16);
-  if (quad === 16) {
-    quad = 15;
-  }
-  // Display correct Pegman sprite.
-  pegSpin.style.backgroundPosition = -quad * PEGMAN_WIDTH + "px 0px";
 }
 
 /**

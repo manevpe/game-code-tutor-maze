@@ -43,4 +43,6 @@ Level1.map = [
 
 Level1.MAX_BLOCKS = 4;
 
+Level1.helpText = "Use the blocks to program the ninja to get to the final destination."
+
 export default Level1;

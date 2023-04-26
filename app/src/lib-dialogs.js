@@ -101,18 +101,6 @@ BlocklyDialogs.showDialog = function(content, origin, animate, modal, style,
     dialog.style.visibility = 'visible';
     dialog.style.zIndex = 100;
     border.style.visibility = 'hidden';
-
-    // Focus on the dialog's most important button.
-    let buttons = content.getElementsByClassName('primary');
-    if (!buttons.length) {
-      buttons = content.getElementsByClassName('secondary');
-      if (!buttons.length) {
-        buttons = content.getElementsByTagName('button');
-      }
-    }
-    if (buttons.length) {
-      buttons[0].focus();
-    }
   }
   // The origin (if it exists) might be a button we should lose focus on.
   try {
@@ -247,12 +235,7 @@ BlocklyDialogs.storageAlert = function(origin, message) {
   }
 
   const content = BlocklyGames.getElementById('dialogStorage');
-  const style = {
-    width: '50%',
-    left: '25%',
-    top: '5em',
-  };
-  BlocklyDialogs.showDialog(content, origin, true, true, style,
+  BlocklyDialogs.showDialog(content, origin, true, true, null,
       BlocklyDialogs.stopDialogKeyDown);
   BlocklyDialogs.startDialogKeyDown();
 };

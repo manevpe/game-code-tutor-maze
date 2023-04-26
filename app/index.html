@@ -16,6 +16,7 @@
 
   <div id="header">
     <h1>Code Tutor Game - The Maze</h1>
+    <span id="help-button">?</span>
     <span class="level-btn">
       <button id="btn-level1" class="primary">Level 1</button>
     </span>
@@ -51,7 +52,8 @@
         <button id="runButton" class="primary" title="Makes the player do what the blocks say.">
           <img src="assets/images/1x1.gif" class="run icon21"> Run Program
         </button>
-        <button id="resetButton" class="primary" style="display: none" title="Put the player back at the start of the maze.">
+        <button id="resetButton" class="primary" style="display: none"
+          title="Put the player back at the start of the maze.">
           <img src="assets/images/1x1.gif" class="stop icon21"> Reset
         </button>
       </div>
@@ -67,232 +69,22 @@
   <div id="dialog"></div>
   <div id="dialogDone" class="dialogHiddenContent dialog">
     <h1>Congratulations!</h1>
-    <div id="dialogDoneText"></div>
-    <div id="dialogDoneButtons" class="farSide">
-      <button id="doneOk" class="primary">OK</button>
+    <div id="dialogDoneText" class="dialog-text"></div>
+    <div class="dialog-buttons farSide">
+      <button onclick="dialogHide()" class="primary">OK</button>
     </div>
   </div>
-  <div id="dialogStorage" class="dialogHiddenContent">
-    <div id="containerStorage"></div>
-
-    <div class="farSide">
-      <button class="secondary addHideHandler">OK</button>
+  <div id="dialogStorage" class="dialogHiddenContent dialog">
+    <div id="containerStorage" class="dialog-text"></div>
+    <div class="dialog-buttons farSide">
+      <button class="primary" onclick="dialogHide()">OK</button>
     </div>
-
   </div>
-
-  <div id="helpSection">
-    <div id="dialogHelpStack" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-            <td>&nbsp;</td>
-            <td>
-              Stack a couple of 'move forward' blocks together to help me reach the goal.
-            </td>
-            <td valign="top">
-              <img src="assets/images/help_stack.png" class="mirrorImg" height="63" width="136">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpOneTopBlock" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-            <td>&nbsp;</td>
-            <td>
-              On this level, you need to stack together all of the blocks in the white workspace.
-              <div id="sampleOneTopBlock" class="readonly"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpRun" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              Run your program to see what happens.
-            </td>
-            <td rowspan="2">
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div><img src="assets/images/help_run.png" class="mirrorImg" height="27" width="141"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpReset" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              Your program didn't solve the maze. Press 'Reset' and try again.
-            </td>
-            <td rowspan="2">
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div><img src="assets/images/help_run.png" class="mirrorImg" height="27" width="141"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpRepeat" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help_up.png">
-            </td>
-            <td>
-              Reach the end of this path using only two blocks. Use 'repeat' to run a block more than once.
-            </td>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpCapacity" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-            <td>&nbsp;</td>
-            <td>
-              You have used up all the blocks for this level. To create a new block, you first need to delete an
-              existing
-              block.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpRepeatMany" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help_up.png">
-            </td>
-            <td>
-              You can fit more than one block inside a 'repeat' block.
-            </td>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpSkins" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-            <td width="95%">
-              Choose your favourite player from this menu.
-            </td>
-            <td>
-              <img src="assets/images/help_up.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpIf" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help_up.png">
-            </td>
-            <td>
-              An 'if' block will do something only if the condition is true. Try turning left if there is a path to the
-              left.
-            </td>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpMenu" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help_up.png">
-            </td>
-            <td id="helpMenuText">
-              Click on %1 in the 'if' block to change its condition.
-            </td>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpIfElse" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help_down.png">
-            </td>
-            <td>
-              If-else blocks will do one thing or the other.
-            </td>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div id="dialogHelpWallFollow" class="dialogHiddenContent">
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <img src="assets/images/help.png">
-            </td>
-            <td>&nbsp;</td>
-            <td>
-              Can you solve this complicated maze? Try following the left-hand wall. Advanced programmers only!
-
-              <div class="farSide">
-                <button class="secondary addHideHandler">OK</button>
-              </div>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <div id="dialogHelp" class="dialogHiddenContent dialog">
+    <h1>Help</h1>
+    <div id="dialogHelpText" class="dialog-text"></div>
+    <div class="dialog-buttons farSide">
+      <button class="primary" onclick="dialogHide()">OK</button>
     </div>
   </div>
 

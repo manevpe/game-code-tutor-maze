@@ -43,4 +43,6 @@ Level2.map = [
 
 Level2.MAX_BLOCKS = 6;
 
+Level2.helpText = "Use the blocks to program the ninja to get to the final destination."
+
 export default Level2;
