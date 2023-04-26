@@ -9,15 +9,13 @@ import BlocklyDialogs from "./lib-dialogs";
 import BlocklyGames from "./lib-games";
 import BlocklyInterface from "./lib-interface";
 
-// TODO - help menu
-// TODO - refactor code
-
 let level = Level1;
 let toolbox = level.toolbox;
 let map = level.map;
 let MAX_BLOCKS = level.MAX_BLOCKS;
 let isMobile = false;
 
+// Replay animation speed multiplier
 let speedMultiplier = 1;
 document
   .getElementById("speedSelector")
@@ -31,16 +29,27 @@ if (window.localStorage["speedMultiplier"]) {
   document.getElementById("speedSelector").value = speedMultiplier;
 }
 
+// Help dialog - display only the first time a user opens the game
 if (!window.localStorage["helpViewed"]) {
   window.localStorage["helpViewed"] = true;
   showHelpDialog();
 }
 
+document
+  .getElementById("help-button")
+  .addEventListener("click", () => showHelpDialog());
+
+window.dialogHide = function () {
+  BlocklyDialogs.hideDialog(false);
+};
+
+// For mobile devices, increase the size of the blockly elements
 if (window.innerHeight > window.innerWidth) {
   isMobile = true;
   document.getElementsByTagName("body")[0].classList.add("mobile");
 }
 
+// Buttons for changing the level
 document.querySelectorAll("[id^='btn-level']").forEach((btn) => {
   var id = btn.id.replace("btn-level", "");
   btn.addEventListener("click", () => changeLevel(id), id);
@@ -67,14 +76,6 @@ function changeLevel(levelNumber) {
   document.getElementById("btn-level" + levelNumber).classList.add("primary");
   BlocklyGames.LEVEL = levelNumber;
   loadLevel();
-}
-
-document
-  .getElementById("help-button")
-  .addEventListener("click", () => showHelpDialog());
-
-window.dialogHide = function() {
-  BlocklyDialogs.hideDialog(false);
 }
 
 // Crash type constants.
@@ -386,48 +387,10 @@ function drawMap() {
 MazeBlocks.init();
 
 /**
- * Initialize Blockly and the maze.  Called on page load.
+ * Initialize the game. Import dependencies. Add button click listeners.
  */
 function init() {
-  toolbox = level.toolbox;
-
-  // The maze square constants defined above are inlined here
-  // for ease of reading and writing the static mazes.
-  map = level.map;
-
-  BlocklyGames.storageName = "maze";
-
-  let MAX_BLOCKS = level.MAX_BLOCKS;
-
-  BlocklyInterface.init("Maze");
-
-  const scale = isMobile ? 1.33 : 1;
-  BlocklyInterface.injectBlockly({
-    toolbox: toolbox,
-    maxBlocks: MAX_BLOCKS,
-    trashcan: false,
-    zoom: { startScale: scale },
-  });
-
-  drawMap();
-
-  const defaultXml = "<xml></xml>";
-  BlocklyInterface.loadBlocks(defaultXml, false);
-
-  // Locate the start and finish squares.
-  for (let y = 0; y < ROWS; y++) {
-    for (let x = 0; x < COLS; x++) {
-      if (map[y][x] === SquareType.START) {
-        start_ = { x, y };
-      } else if (map[y][x] === SquareType.FINISH) {
-        finish_ = { x, y };
-      }
-    }
-  }
-
-  reset(true);
-
-  BlocklyInterface.workspace.addChangeListener(updateCapacity);
+  loadLevel();
 
   BlocklyGames.bindClick("runButton", runButtonClick);
   BlocklyGames.bindClick("resetButton", resetButtonClick);
@@ -440,6 +403,9 @@ function init() {
 
 init();
 
+/**
+ * Initialize Blockly and the maze.  Called on page load.
+ */
 function loadLevel() {
   toolbox = level.toolbox;
 
@@ -476,8 +442,6 @@ function loadLevel() {
       }
     }
   }
-
-  reset(true);
 
   resetButtonClick();
 
