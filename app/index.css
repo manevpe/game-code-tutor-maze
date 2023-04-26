@@ -171,6 +171,10 @@ select {
   min-height: 45vh;
 }
 
+.mobile .blocklyMenuItem {
+  font-size: large;
+}
+
 /* 'Look' icon */
 #look > path {
   display: none;
