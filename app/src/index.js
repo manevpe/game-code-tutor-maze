@@ -9,10 +9,8 @@ import BlocklyDialogs from "./lib-dialogs";
 import BlocklyGames from "./lib-games";
 import BlocklyInterface from "./lib-interface";
 
-// TODO - 2 more levels
 // TODO - help menu
 // TODO - refactor code
-// TODO - fix dependabot PRs
 
 let level = Level1;
 let toolbox = level.toolbox;

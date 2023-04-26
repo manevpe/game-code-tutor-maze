@@ -1,16 +1,5 @@
 import * as Blockly from "blockly";
 
-
-// goog.provide('Maze.Blocks');
-
-// goog.require('Blockly');
-// goog.require('Blockly.JavaScript');
-// goog.require('Blockly.Extensions');
-// goog.require('Blockly.FieldDropdown');
-// goog.require('Blockly.FieldImage');
-// goog.require('BlocklyGames');
-
-
 /**
  * Construct custom maze block types.  Called on page load.
  */
@@ -41,14 +30,14 @@ Maze.Blocks.init = function() {
   const RIGHT_TURN = ' ↻';
 
   const TURN_DIRECTIONS = [
-    [BlocklyGames.getMsg('Maze.turnLeft', false), 'turnLeft'],
-    [BlocklyGames.getMsg('Maze.turnRight', false), 'turnRight'],
+    ["turn left", 'turnLeft'],
+    ["turn right", 'turnRight'],
   ];
 
   const PATH_DIRECTIONS = [
-    [BlocklyGames.getMsg('Maze.pathAhead', false), 'isPathForward'],
-    [BlocklyGames.getMsg('Maze.pathLeft', false), 'isPathLeft'],
-    [BlocklyGames.getMsg('Maze.pathRight', false), 'isPathRight'],
+    ["if path ahead", 'isPathForward'],
+    ["if path to the left", 'isPathLeft'],
+    ["if path to the right", 'isPathRight'],
   ];
 
   // Add arrows to turn options after prefix/suffix have been separated.
@@ -63,11 +52,11 @@ Maze.Blocks.init = function() {
     // Block for moving forward.
     {
       "type": "maze_moveForward",
-      "message0": BlocklyGames.getMsg('Maze.moveForward', false),
+      "message0": "move forward",
       "previousStatement": null,
       "nextStatement": null,
       "colour": MOVEMENT_HUE,
-      "tooltip": BlocklyGames.getMsg('Maze.moveForwardTooltip', false),
+      "tooltip": "Moves the player forward one space.",
     },
 
     // Block for turning left or right.
@@ -84,14 +73,14 @@ Maze.Blocks.init = function() {
       "previousStatement": null,
       "nextStatement": null,
       "colour": MOVEMENT_HUE,
-      "tooltip": BlocklyGames.getMsg('Maze.turnTooltip', false),
+      "tooltip": "Turns the player left or right by 90 degrees.",
       "extensions": ["maze_turn_arrows"],
     },
 
     // Block for conditional "if there is a path".
     {
       "type": "maze_if",
-      "message0": `%1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "message0": `%1%2${"do"}%3`,
       "args0": [
         {
           "type": "field_dropdown",
@@ -109,14 +98,14 @@ Maze.Blocks.init = function() {
       "previousStatement": null,
       "nextStatement": null,
       "colour": LOGIC_HUE,
-      "tooltip": BlocklyGames.getMsg('Maze.ifTooltip', false),
+      "tooltip": "If there is a path in the specified direction, then do some actions.",
       "extensions": ["maze_turn_arrows"],
     },
 
     // Block for conditional "if there is a path, else".
     {
       "type": "maze_ifElse",
-      "message0": `%1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3${BlocklyGames.getMsg('Maze.elseCode', false)}%4`,
+      "message0": `%1%2${"do"}%3${"else"}%4`,
       "args0": [
         {
           "type": "field_dropdown",
@@ -138,14 +127,14 @@ Maze.Blocks.init = function() {
       "previousStatement": null,
       "nextStatement": null,
       "colour": LOGIC_HUE,
-      "tooltip": BlocklyGames.getMsg('Maze.ifelseTooltip', false),
+      "tooltip": "If there is a path in the specified direction, then do the first block of actions. Otherwise, do the second block of actions.",
       "extensions": ["maze_turn_arrows"],
     },
 
     // Block for repeat loop.
     {
       "type": "maze_forever",
-      "message0": `${BlocklyGames.getMsg('Maze.repeatUntil', false)}%1%2${BlocklyGames.getMsg('Maze.doCode', false)}%3`,
+      "message0": `${"repeat until"}%1%2${"do"}%3`,
       "args0": [
         {
           "type": "field_image",
@@ -163,7 +152,7 @@ Maze.Blocks.init = function() {
       ],
       "previousStatement": null,
       "colour": LOOPS_HUE,
-      "tooltip": BlocklyGames.getMsg('Maze.whileTooltip', false),
+      "tooltip": "Repeat the enclosed actions until finish point is reached.",
     },
   ]);
 };

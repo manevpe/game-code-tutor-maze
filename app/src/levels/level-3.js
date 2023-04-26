@@ -14,11 +14,6 @@ Level3.toolbox = {
 
     {
       kind: "block",
-      type: "maze_turn",
-    },
-
-    {
-      kind: "block",
       type: "maze_forever",
     },
 
@@ -42,9 +37,9 @@ Level3.map = [
   [0, 1, 1, 1, 1, 1, 1, 0],
   [0, 0, 0, 1, 0, 0, 1, 0],
   [0, 2, 1, 1, 1, 0, 1, 0],
-  [0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0],
 ];
 
-Level3.MAX_BLOCKS = 10;
+Level3.MAX_BLOCKS = 6;
 
 export default Level3;
