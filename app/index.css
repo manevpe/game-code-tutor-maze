@@ -74,10 +74,17 @@ label {
 }
 
 select {
-  padding: var(--d2) var(--d1);
+  padding: var(--d1) var(--d1);
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
   font-size: large;
+}
+
+.mobile button {
+  padding: var(--d2) var(--d4);
+}
+.mobile select {
+  padding: var(--d2) var(--d1);
 }
 
 /* Game Components */
@@ -94,7 +101,7 @@ select {
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
   padding: var(--d2) var(--d2);
-  min-width: 500px;
+  min-width: 400px;
 }
 
 #svgMaze {
@@ -141,8 +148,12 @@ select {
   padding: var(--d2);
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
-  min-width: 500px;
+  min-width: 400px;
   min-height: 400px;
+}
+
+.mobile #blockly {
+  min-height: 30vh;
 }
 
 #sampleOneTopBlock {
