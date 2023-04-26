@@ -30,7 +30,7 @@ body {
   background-color: #072747;
   background-image: url("./assets/images/logo.png");
   background-repeat: no-repeat;
-  background-size: auto, 200px;
+  background-size: 140px, auto;
   background-position: left var(--d2) center;
   color: white;
   font-weight: bold;
