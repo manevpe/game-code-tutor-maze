@@ -97,6 +97,7 @@ select {
 
 .mobile button {
   padding: var(--d2) var(--d4);
+  font-size: x-large;
 }
 .mobile select {
   padding: var(--d2) var(--d1);
@@ -172,7 +173,7 @@ select {
 }
 
 .mobile .blocklyMenuItem {
-  font-size: large;
+  font-size: x-large;
 }
 
 /* 'Look' icon */
