@@ -419,7 +419,7 @@ function loadLevel() {
 
   BlocklyInterface.init("Maze");
 
-  const scale = isMobile ? 1.33 : 1;
+  const scale = isMobile ? 1.5 : 1;
   BlocklyInterface.injectBlockly({
     toolbox: toolbox,
     maxBlocks: MAX_BLOCKS,
