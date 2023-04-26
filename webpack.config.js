@@ -15,19 +15,23 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new CopyPlugin([
-      {
-        from: path.resolve(__dirname, "app"),
-        to: path.resolve(__dirname, "build"),
-      },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "app"),
+          to: path.resolve(__dirname, "build"),
+        },
+      ]
+    }),
     // Copy over media resources from the Blockly package
-    new CopyPlugin([
-      {
-        from: path.resolve(__dirname, "./node_modules/blockly/media"),
-        to: path.resolve(__dirname, "build/third-party/blockly/media"),
-      },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "./node_modules/blockly/media"),
+          to: path.resolve(__dirname, "build/third-party/blockly/media"),
+        },
+      ]
+    }),
     // Copy over media resources for custom branding
     new FileManagerPlugin({
       events: {
