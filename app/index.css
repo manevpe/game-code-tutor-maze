@@ -94,7 +94,7 @@ select {
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
   padding: var(--d2) var(--d2);
-  min-width: 600px;
+  min-width: 500px;
 }
 
 #svgMaze {
@@ -103,6 +103,10 @@ select {
   margin: auto;
   height: 60vh;
   min-height: 300px;
+}
+
+.mobile #svgMaze {
+  height: 40vh;
 }
 
 #capacityBubble {
@@ -137,7 +141,7 @@ select {
   padding: var(--d2);
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
-  min-width: 600px;
+  min-width: 500px;
   min-height: 400px;
 }
 

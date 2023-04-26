@@ -12,12 +12,13 @@ import BlocklyInterface from "./lib-interface";
 // TODO - 2 more levels
 // TODO - help menu
 // TODO - refactor code
+// TODO - fix dependabot PRs
 
 let level = Level1;
 let toolbox = level.toolbox;
 let map = level.map;
 let MAX_BLOCKS = level.MAX_BLOCKS;
-
+let isMobile = false;
 
 let speedMultiplier = 1;
 document
@@ -30,6 +31,11 @@ document
 if (window.localStorage["speedMultiplier"]) {
   speedMultiplier = window.localStorage["speedMultiplier"];
   document.getElementById("speedSelector").value = speedMultiplier;
+}
+
+if (window.innerHeight > window.innerWidth) {
+  isMobile = true;
+  document.getElementsByTagName("body")[0].classList.add("mobile");
 }
 
 
@@ -385,7 +391,7 @@ function init() {
 
   BlocklyInterface.init("Maze");
 
-  const scale = 1;
+  const scale = isMobile ? 1.25 : 1;
   BlocklyInterface.injectBlockly({
     toolbox: toolbox,
     maxBlocks: MAX_BLOCKS,
@@ -437,7 +443,7 @@ function loadLevel() {
 
   BlocklyInterface.init("Maze");
 
-  const scale = 1;
+  const scale = isMobile ? 1.25 : 1;
   BlocklyInterface.injectBlockly({
     toolbox: toolbox,
     maxBlocks: MAX_BLOCKS,
