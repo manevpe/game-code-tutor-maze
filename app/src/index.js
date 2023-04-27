@@ -44,7 +44,7 @@ window.dialogHide = function () {
 };
 
 // For mobile devices, increase the size of the blockly elements
-if (window.innerHeight > window.innerWidth && window.innerWidth > 800) {
+if (window.innerHeight > window.innerWidth && window.innerWidth > 700) {
   isMobile = true;
   document.getElementsByTagName("body")[0].classList.add("mobile");
 }
