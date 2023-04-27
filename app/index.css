@@ -118,7 +118,7 @@ select {
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
   padding: var(--d2) var(--d2);
-  min-width: 400px;
+  min-width: 40vw;
 }
 
 #svgMaze {
@@ -126,7 +126,7 @@ select {
   display: block;
   margin: auto;
   height: 60vh;
-  min-height: 300px;
+  min-height: 30vh;
 }
 
 .mobile #svgMaze {
@@ -169,8 +169,8 @@ select {
   padding: var(--d2);
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
-  min-width: 400px;
-  min-height: 400px;
+  min-width: 47vw;
+  min-height: 75vh;
 }
 
 .mobile #blockly {
