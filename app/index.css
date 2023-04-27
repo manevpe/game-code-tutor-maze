@@ -99,6 +99,7 @@ select {
   padding: var(--d2) var(--d4);
   font-size: x-large;
 }
+
 .mobile select {
   padding: var(--d2) var(--d1);
 }
@@ -144,6 +145,10 @@ select {
   background-color: rgba(64, 64, 64, 0.7);
   font-size: large;
   margin: auto;
+}
+
+.mobile #capacity {
+  font-size: x-large;
 }
 
 .capacityNumber {
@@ -257,6 +262,10 @@ button:hover:not(:disabled) > img {
 .dialog h1 {
   font-size: large;
   margin: 1em;
+}
+
+.mobile .dialog-text, .mobile .dialog h1 {
+  font-size: x-large;
 }
 
 #dialog {
