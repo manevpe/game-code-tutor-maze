@@ -401,7 +401,7 @@ function init() {
   BlocklyCode.importPrettify();
 }
 
-init();
+setTimeout(init, 1000);
 
 /**
  * Initialize Blockly and the maze.  Called on page load.
