@@ -177,6 +177,10 @@ select {
   min-height: 45vh;
 }
 
+.mobile #blockly .blocklySvg, .mobile #blockly .blocklySvg .blocklyWorkspace {
+  min-width: 45vw;
+}
+
 .mobile .blocklyMenuItem {
   font-size: x-large;
 }
