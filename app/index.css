@@ -177,8 +177,8 @@ select {
   min-height: 45vh;
 }
 
-.mobile #blockly .blocklySvg, .mobile #blockly .blocklySvg .blocklyWorkspace {
-  min-width: 45vw;
+#blockly .blocklyDraggable {
+  display: inline-block !important;
 }
 
 .mobile .blocklyMenuItem {
