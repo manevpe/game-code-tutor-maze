@@ -177,8 +177,13 @@ select {
   min-height: 45vh;
 }
 
-#blockly .blocklyBlockCanvas, #blockly .blocklyDraggable, #blockly .blocklySvg .blocklyDraggable path {
+#blockly .blocklySvg, #blockly .blocklyBlockCanvas, #blockly .blocklyDraggable, #blockly .blocklySvg .blocklyDraggable path {
   display: inline-block !important;
+}
+
+.mobile #blockly .blocklySvg {
+  min-width: 80vw;
+  min-height: 40vh;
 }
 
 .mobile .blocklyMenuItem {
