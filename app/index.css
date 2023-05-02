@@ -177,7 +177,7 @@ select {
   min-height: 45vh;
 }
 
-#blockly .blocklyDraggable {
+#blockly .blocklyBlockCanvas, #blockly .blocklyDraggable, #blockly .blocklySvg .blocklyDraggable path {
   display: inline-block !important;
 }
 
