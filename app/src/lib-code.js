@@ -102,6 +102,9 @@ BlocklyCode.congratulations = function () {
   };
 
   let levelMsg = "Are you ready for the next challenge? Select one of the other levels to try.";
+  if (document.querySelector('.level-btn button.primary').textContent === 'Level 3') {
+    levelMsg = "Yeay, you completed the hardest level! You are a true Automation Ninja!";
+  }
 
   BlocklyDialogs.showDialog(content, null, false, true, style, function () {
     document.body.removeEventListener(

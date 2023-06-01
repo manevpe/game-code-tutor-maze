@@ -30,7 +30,7 @@ body {
   background-color: #072747;
   background-image: url("./assets/images/logo.png");
   background-repeat: no-repeat;
-  background-size: auto, 200px;
+  background-size: 140px, auto;
   background-position: left var(--d2) center;
   color: white;
   font-weight: bold;
@@ -97,7 +97,9 @@ select {
 
 .mobile button {
   padding: var(--d2) var(--d4);
+  font-size: x-large;
 }
+
 .mobile select {
   padding: var(--d2) var(--d1);
 }
@@ -116,7 +118,7 @@ select {
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
   padding: var(--d2) var(--d2);
-  min-width: 400px;
+  min-width: 40vw;
 }
 
 #svgMaze {
@@ -124,7 +126,7 @@ select {
   display: block;
   margin: auto;
   height: 60vh;
-  min-height: 300px;
+  min-height: 30vh;
 }
 
 .mobile #svgMaze {
@@ -145,6 +147,10 @@ select {
   margin: auto;
 }
 
+.mobile #capacity {
+  font-size: x-large;
+}
+
 .capacityNumber {
   font-weight: bold;
 }
@@ -163,12 +169,25 @@ select {
   padding: var(--d2);
   border: 1px solid #d1d5db;
   border-radius: var(--border-radius);
-  min-width: 400px;
-  min-height: 400px;
+  min-width: 47vw;
+  min-height: 75vh;
 }
 
 .mobile #blockly {
-  min-height: 30vh;
+  min-height: 45vh;
+}
+
+#blockly .blocklySvg, #blockly .blocklyBlockCanvas, #blockly .blocklyDraggable, #blockly .blocklySvg .blocklyDraggable path {
+  display: inline-block !important;
+}
+
+.mobile #blockly .blocklySvg {
+  min-width: 80vw;
+  min-height: 40vh;
+}
+
+.mobile .blocklyMenuItem {
+  font-size: x-large;
 }
 
 /* 'Look' icon */
@@ -252,6 +271,10 @@ button:hover:not(:disabled) > img {
 .dialog h1 {
   font-size: large;
   margin: 1em;
+}
+
+.mobile .dialog-text, .mobile .dialog h1 {
+  font-size: x-large;
 }
 
 #dialog {

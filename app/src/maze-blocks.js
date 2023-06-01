@@ -30,8 +30,8 @@ MazeBlocks.init = function () {
   const RIGHT_TURN = " ↻";
 
   const TURN_DIRECTIONS = [
-    ["turn left by", "turnLeft"],
-    ["turn right by", "turnRight"],
+    ["turn left", "turnLeft"],
+    ["turn right", "turnRight"],
   ];
 
   const PATH_DIRECTIONS = [
