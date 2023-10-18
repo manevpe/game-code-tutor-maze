@@ -3,6 +3,10 @@
 Game for developing logical thinking through programming excercises, based on conditional logic and loops.
 Based on the Google Blockly engine.
 
+## Demo
+[https://resolve-jprime-2023.vercel.app/](https://resolve-jprime-2023.vercel.app/)
+
+
 ## To Rebrand
 Replace the following files:
 ```
